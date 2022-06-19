@@ -1,5 +1,5 @@
 # import math
-
+from pickle import dump, load
 # x1 = 0
 # y1 = 0
 # x2 = 0
@@ -140,34 +140,84 @@
 
 
 
-sacosDisp = int(input('Digite a quantidade de sacos de cimento disponiveis no estoque: '))
-preco = float(input('Digite o preço de cada saco: '))
-maiorvalor = 0
-maiorcliente = 0
-cliente = 1
-while cliente > 0 and sacosDisp >= 100:
-    cliente = int(input('Digite o código do cliente: '))
-    sacosComprados = int(input('Digite a quantidade de sacos adquiridos por este cliente: '))
-    valor = sacosComprados * preco
+# sacosDisp = int(input('Digite a quantidade de sacos de cimento disponiveis no estoque: '))
+# preco = float(input('Digite o preço de cada saco: '))
+# maiorvalor = 0
+# maiorcliente = 0
+# cliente = 1
+# while cliente > 0 and sacosDisp >= 100:
+#     cliente = int(input('Digite o código do cliente: '))
+#     sacosComprados = int(input('Digite a quantidade de sacos adquiridos por este cliente: '))
+#     valor = sacosComprados * preco
     
-    if valor > maiorvalor:
-        maiorvalor = valor
-        maiorcliente = cliente
+#     if valor > maiorvalor:
+#         maiorvalor = valor
+#         maiorcliente = cliente
 
 
-    if sacosDisp > sacosComprados and sacosComprados <= (sacosDisp * 0.1):
-        print(f"O código do cliente é {cliente}")
-        print(f"A quantiade de sacos pedidos é {sacosComprados}")
-        print(f"o valor do pedido é {valor}")
-        sacosDisp -= sacosComprados
-    elif sacosDisp < sacosComprados:
-        print('Estoque insuficiente')
-    else: 
-        print('Ultrapassado o máximo permitido')
+#     if sacosDisp > sacosComprados and sacosComprados <= (sacosDisp * 0.1):
+#         print(f"O código do cliente é {cliente}")
+#         print(f"A quantiade de sacos pedidos é {sacosComprados}")
+#         print(f"o valor do pedido é {valor}")
+#         sacosDisp -= sacosComprados
+#     elif sacosDisp < sacosComprados:
+#         print('Estoque insuficiente')
+#     else: 
+#         print('Ultrapassado o máximo permitido')
 
 
-print(f"A quantidade de sacos em estoque é: {sacosDisp}")
-print(f'O cliente que fez o maior pedido é o {maiorcliente}')
+# print(f"A quantidade de sacos em estoque é: {sacosDisp}")
+# print(f'O cliente que fez o maior pedido é o {maiorcliente}')
 
 
 
+class Pessoa:
+    def __init__(self, cPF, nome, idade,sexo):
+        self.cPF = cPF
+        self.nome = nome
+        self.idade = idade
+        self.sexo = sexo
+        self.amigos = []
+
+def menu():
+  print("Entre com uma opção do menu abaixo: ")
+  print("[a] - Cadastrar Pessoa.")
+  print("[b] - Buscar Pessoa.")
+  print("[c] - Cadastrar amigo de uma Pessoa.")
+  print("[d] - Desfazer amizade.")
+  print("[e] - Imprimir os dados de todas as Pessoas cadastradas.")
+  print("[f] - Devolver a lista de amigos de uma Pessoa de nome X.")
+  print("[g] - Gravar os dados de todas as pessoas em um arquivo texto, como saída.")
+  print("[h] - Encerrar.")
+  opcao = input("Escolha sua opção: ")
+        
+entrada = open('entrada.dat', 'wb')
+pessoa1 = Pessoa('08959039543','Pedro','18', 'M')
+pessoa2 = Pessoa('94582231489','Mauricio','23', 'M')
+pessoa3 = Pessoa('45852904123','Ana','21', 'F')
+pessoa4 = Pessoa('58217894127','Luzia','25', 'F')
+pessoa5 = Pessoa('83905827892','Tarcio','17', 'M')
+
+pessoa1.amigos.append(pessoa2.cPF)
+pessoa2.amigos.append(pessoa1.cPF)
+
+pessoa1.amigos.append(pessoa3.cPF)
+pessoa3.amigos.append(pessoa1.cPF)
+
+pessoa2.amigos.append(pessoa5.cPF)
+pessoa5.amigos.append(pessoa2.cPF)
+
+pessoa4.amigos.append(pessoa5.cPF)
+pessoa5.amigos.append(pessoa4.cPF)
+
+pessoa2.amigos.append(pessoa4.cPF)
+pessoa4.amigos.append(pessoa3.cPF)
+
+dump(pessoa1, entrada)
+dump(pessoa2, entrada)
+dump(pessoa3, entrada)
+dump(pessoa4, entrada)
+dump(pessoa5, entrada)
+entrada.close()
+
+print(pessoa4.amigos)

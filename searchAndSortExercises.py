@@ -90,32 +90,99 @@
 #         lista[j] = lista[minIndex]
 #         lista[minIndex] = aux
 
-listanome = []
+# listanome = []
 
-nome = input('digite o nome: ')
+# nome = input('digite o nome: ')
 
-while nome:
-    listanome.append(nome)
-    nome = input('digite o nome: ')
+# while nome:
+#     listanome.append(nome)
+#     nome = input('digite o nome: ')
 
-def insertion(lista):
-    tam = len(lista)
-    counter = 0
-    for i in range(1, tam):
-        chain = lista[i]
-        j = i - 1 
-        while j >= 0 and lista[j] > chain:
-            lista[j+1] = lista[j]   
-            j = j - 1
-            counter += 1
-        lista[j+1] = chain
-    return lista, counter
+# def insertion(lista):
+#     tam = len(lista)
+#     counter = 0
+#     for i in range(1, tam):
+#         chain = lista[i]
+#         j = i - 1 
+#         while j >= 0 and lista[j] > chain:
+#             lista[j+1] = lista[j]   
+#             j = j - 1
+#             counter += 1
+#         lista[j+1] = chain
+#     return lista, counter
 
-listan, trocas = insertion(listanome)
-for i in listan:
-    print(i)
-if trocas == 1:
-    print('1 troca realizada')
-else:
-    print(f'{trocas} trocas realizadas')
+# listan, trocas = insertion(listanome)
+# for i in listan:
+#     print(i)
+# if trocas == 1:
+#     print('1 troca realizada')
+# else:
+#     print(f'{trocas} trocas realizadas')
 
+# import sys
+# lista = []
+# trocas = 0
+
+# def selectionSort(lista):
+# 	global trocas
+# 	array = lista.copy()
+# 	n = len(array)
+# 	for i in range(n):
+# 		menor = i
+# 		for j in range(i+1, n):
+# 			if array[menor] > array[j]:
+# 				menor = j
+# 		if menor != i:
+# 			trocas += 1
+# 			array[i], array[menor] = array[menor], array[i]
+# 	return array
+# for line in sys.stdin:
+# 	line = line.strip()
+# 	lista.append(int(line))
+# ordenada = selectionSort(lista)
+# print("Lista Ordenada: {}, {} trocas foram realizadas.".format(ordenada, trocas))
+
+
+
+
+
+def selectionSort(lista):
+	#Percorre o elemento de forma crescente variando o tamanho da lista
+	trocas = 0
+	for j in range(len(lista)-1):
+		minIndex = j
+
+		#PROCURA O MENOR INDICES
+		for i in range(j, len(lista)):
+			if lista[i] < lista[minIndex]:
+				minIndex = i
+			
+		if lista[j] > lista[minIndex]:
+			aux = lista[j]
+			lista[j] = lista[minIndex]
+			lista[minIndex] = aux
+			trocas += 1
+	return lista, trocas
+
+lista = []
+while True:
+	try:
+		num = int(input(''))
+		lista.append(num)
+	except ValueError:
+		break
+
+listaord, trocas = selectionSort(lista)	
+print('Lista Ordenada: {}, {} trocas de indices realizadas.'.format(listaord, trocas))
+
+
+# print(selectionSort(lista))
+
+# lista = [8,4,2,7,1,7,3]
+# def bubble(lista):
+# 	for j in range(len(lista)-1):
+# 		for i in range(len(lista)-1):
+# 			if lista[i] > lista[i+1]:
+# 				lista[i], lista[i+1] = lista[i+1], lista[i]
+
+# print(bubble(lista))
