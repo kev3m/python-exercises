@@ -186,3 +186,58 @@ print('Lista Ordenada: {}, {} trocas de indices realizadas.'.format(listaord, tr
 # 				lista[i], lista[i+1] = lista[i+1], lista[i]
 
 # print(bubble(lista))
+
+class Conta_corrente:
+    numero_conta = 1
+    def __init__(self,nome_correntista,servicos_extras, saldo_conta):
+        self.nome_correntista = nome_correntista
+        self.servicos_extras = servicos_extras
+        self.saldo_conta = saldo_conta
+
+    def atualizarSaldo100Reais(self):
+        if self.saldo_conta < 100:
+            self.saldo_conta += 200
+    
+    def atualizarSaldoServicos(self):
+        if self.servicos_extras == True:
+            self.saldo_conta -= 50
+        else:
+            self.saldo_conta -= 10
+
+    def get_saldo_conta(self):
+        return self.saldo_conta
+
+
+def cadastrar(Conta_corrente):
+    listaDeContas = []
+    for i in range(3):
+        nome_correntista = input('')
+        servicos_extras = eval(input(''))
+        saldo_conta = float(input(''))
+        conta = Conta_corrente(nome_correntista, servicos_extras, saldo_conta)
+        conta.numero_conta += i
+        listaDeContas.append(conta)
+    return listaDeContas
+
+def removerConta(lista):
+    for conta in lista:
+        if conta.saldo_conta > 1000:
+            lista.remove(conta)
+    
+lista = cadastrar(Conta_corrente)
+newlist = sorted(lista, key = Conta_corrente.get_saldo_conta, reverse = True)
+for conta in newlist:
+    if conta.saldo_conta < 100:
+        if conta.servicos_extras == True:
+            print('{}, com servicos extras, possui {:.2f} reais'.format(conta.nome_correntista, conta.saldo_conta))
+        else:
+            print('{}, sem servicos extras, possui {:.2f} reais'.format(conta.nome_correntista, conta.saldo_conta))
+
+removerConta(newlist)
+for conta in newlist:
+    conta.atualizarSaldo100Reais()
+    conta.atualizarSaldoServicos()
+    if conta.servicos_extras == True:
+        print('{}, com servicos extras, possui {:.2f} reais'.format(conta.nome_correntista, conta.saldo_conta))
+    else:
+        print('{}, sem servicos extras, possui {:.2f} reais'.format(conta.nome_correntista, conta.saldo_conta))
